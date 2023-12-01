@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 
 function History() {
@@ -30,7 +31,6 @@ function History() {
                         <table className="table table-zebra border rounded-lg table-sm">
                             <thead>
                                 <tr>
-                                    <th></th>
                                     <th>Teams (score)</th>
                                     <th>Winner</th>
                                     <th>Date</th>
@@ -40,16 +40,15 @@ function History() {
                             <tbody>
                                 {matches.map((match, index) => {
                                     return <tr key={match.id}>
-                                        <td>{index + 1}</td>
                                         <td>
-                                            <ul>
+                                            <ul className="">
                                                 {match.teams.sort(sortTeams).map((team, index) => {
                                                     return <li key={team.id}>{team.name} ({team.score})</li>
                                                 })}
                                             </ul>
                                         </td>
                                         <td>{match.winner.name}</td>
-                                        <td>{match.date}</td>
+                                        <td>{dayjs(match.date).format("YYYY-MM-DD hh:mm")}</td>
                                         <td>
                                             <div className="flex gap-1">
                                                 <button onClick={() => handleDeleteMatch(match)} className="btn btn-xs btn-danger btn-error">Delete</button>
