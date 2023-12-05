@@ -9,7 +9,7 @@ import ReactAudioPlayer from "react-audio-player";
 function App() {
   const [teams, setTeams] = useLocalStorage("teams", []) // [{id: uuid, name: "Team Name", score: 0, logs: []}]
   const [globalAddScore, setGlobalAddScore] = useLocalStorage("globalAddScore", 1)
-  const [globalSubScore, setGlobalSubScore] = useLocalStorage("globalAddScore", 1)
+  const [globalSubScore, setGlobalSubScore] = useLocalStorage("globalSubScore", 1)
   const [heartSound, setHeartSound] = useState(false)
   const parentTeamRef = useRef(null);
 
