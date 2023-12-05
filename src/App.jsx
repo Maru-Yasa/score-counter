@@ -62,7 +62,11 @@ function App() {
 
   const handleAddAndSubtract = (team, multiply) => {
     // update team with new data
-    team.score += (globalAddScore * multiply);
+    if (multiply > 0) {      
+      team.score += (globalAddScore * multiply);
+    } else {
+      team.score += (globalSubScore * multiply);
+    }
     handleUpdateTeam(team);
   }
 
