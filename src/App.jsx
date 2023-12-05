@@ -1,13 +1,16 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TeamBox } from "./components/TeamBox";
 import { useForceUpdate } from "./hooks/useForceUpdate";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { v4 as uuidv4 } from 'uuid';
 import autoAnimate from "@formkit/auto-animate";
+import ReactAudioPlayer from "react-audio-player";
 
 function App() {
   const [teams, setTeams] = useLocalStorage("teams", []) // [{id: uuid, name: "Team Name", score: 0, logs: []}]
   const [globalAddScore, setGlobalAddScore] = useLocalStorage("globalAddScore", 1)
+  const [globalSubScore, setGlobalSubScore] = useLocalStorage("globalAddScore", 1)
+  const [heartSound, setHeartSound] = useState(false)
   const parentTeamRef = useRef(null);
 
   const handleAddTeam = () => {
@@ -75,13 +78,24 @@ function App() {
           <button className="btn btn-sm btn-primary" onClick={handleAddTeam}>Add</button>
           <a href="/history" className="btn btn-sm">View History</a>
           <button className="btn btn-sm btn-error" onClick={handleClearAllTeams}>Clear All &  Save</button>
+          <button className={"btn btn-sm"} onClick={() => setHeartSound(!heartSound)}>
+            ❤️
+            {heartSound && <ReactAudioPlayer src="/tense.mp3" autoPlay loop />}
+          </button>
         </div>
-        <div className="max-w-lg flex justify-center">
-          <input type="number" className="input input-bordered input-sm" onChange={(e) => setGlobalAddScore(e.target.value)} value={globalAddScore} />
+        <div className="max-w-lg flex justify-center gap-3">
+          <div className="flex gap-1 items-center">
+            <span className="label-text text-2xl">+</span>
+            <input type="number" className="input input-bordered input-sm" onChange={(e) => setGlobalAddScore(e.target.value)} value={globalAddScore} />
+          </div>
+          <div className="flex gap-1 items-center">
+            <span className="label-text text-2xl">-</span>
+            <input type="number" className="input input-bordered input-sm" onChange={(e) => setGlobalSubScore(e.target.value)} value={globalSubScore} />
+          </div>
         </div>
       </div>
       <div ref={parentTeamRef} className="grid lg:grid-cols-3 sm:grid-cols-1 justify-center py-7 px-16 gap-5">
-        {teams?.toSorted(sortTeams).map((team, index) => <TeamBox addAndSubCallback={handleAddAndSubtract} deleteTeanCallback={handleDeleteTeam} updateTeamCallback={handleUpdateTeam} team={team} key={team.id} index={index + 1} addScore={globalAddScore} />)}
+        {teams?.toSorted(sortTeams).map((team, index) => <TeamBox addAndSubCallback={handleAddAndSubtract} deleteTeanCallback={handleDeleteTeam} updateTeamCallback={handleUpdateTeam} team={team} key={team.id} index={index + 1} subScore={globalSubScore} addScore={globalAddScore} />)}
       </div>
     </main>
   </>

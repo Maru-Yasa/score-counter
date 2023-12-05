@@ -14,7 +14,7 @@ const getPositionStyle = (pos) => {
     }
 }
 
-export const TeamBox = ({ index = 0, team, updateTeamCallback=null, deleteTeanCallback=null, addAndSubCallback=null, addScore=1 }) => {
+export const TeamBox = ({ index = 0, team, updateTeamCallback=null, deleteTeanCallback=null, addAndSubCallback=null, addScore=1, subScore=1 }) => {
     const [teamName, setTeamName] = useState(team.name);
 
     const handleDelete = () => {
@@ -62,7 +62,7 @@ export const TeamBox = ({ index = 0, team, updateTeamCallback=null, deleteTeanCa
             </h3>
             <div className="flex justify-center gap-3">
                 <button onClick={handleAddScore} className="btn btn-sm btn-primary">+ {addScore}</button>
-                <button onClick={handleSubtractScore} className="btn btn-sm btn-primary">- {addScore}</button>
+                <button onClick={handleSubtractScore} className="btn btn-sm btn-primary">- {subScore}</button>
             </div>
         </div>
 

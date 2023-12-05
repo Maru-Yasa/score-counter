@@ -13,6 +13,7 @@
     "@formkit/auto-animate": "^0.8.1",
     "dayjs": "^1.11.10",
     "react": "^18.2.0",
+    "react-audio-player": "^0.17.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.0",
     "uuid": "^9.0.1"
