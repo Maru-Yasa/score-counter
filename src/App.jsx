@@ -11,6 +11,7 @@ function App() {
   const [globalAddScore, setGlobalAddScore] = useLocalStorage("globalAddScore", 1)
   const [globalSubScore, setGlobalSubScore] = useLocalStorage("globalSubScore", 1)
   const [heartSound, setHeartSound] = useState(false)
+  const [cheerSound, setCheerSound] = useState(false)
   const parentTeamRef = useRef(null);
 
   const handleAddTeam = () => {
@@ -56,6 +57,20 @@ function App() {
     setTeams([]);
   }
 
+  const handleCheer = (state) => {
+    setCheerSound(state)
+    if (state) {
+      setHeartSound(false)
+    }
+  }
+
+  const handleHeart = (state) => {
+    setHeartSound(state)
+    if (state) {
+      setCheerSound(false)
+    }
+  }
+
   const sortTeams = (t1, t2) => {
     return t2.score - t1.score
   }
@@ -82,9 +97,13 @@ function App() {
           <button className="btn btn-sm btn-primary" onClick={handleAddTeam}>Add</button>
           <a href="/history" className="btn btn-sm">View History</a>
           <button className="btn btn-sm btn-error" onClick={handleClearAllTeams}>Clear All &  Save</button>
-          <button className={"btn btn-sm"} onClick={() => setHeartSound(!heartSound)}>
+          <button className={"btn btn-sm"} onClick={() => handleHeart(!heartSound)}>
             ❤️
             {heartSound && <ReactAudioPlayer src="/tense.mp3" autoPlay loop />}
+          </button>
+          <button className={"btn btn-sm"} onClick={() => handleCheer(!cheerSound)}>
+            👏
+            {cheerSound && <ReactAudioPlayer src="/cheer.mp3" autoPlay loop />}
           </button>
         </div>
         <div className="max-w-lg flex justify-center gap-3">
